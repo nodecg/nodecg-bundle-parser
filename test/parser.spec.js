@@ -34,4 +34,11 @@ describe('bundle parser', function () {
         }]);
         parsedBundle.display.dir.should.be.a.string;
     });
+
+    context('when bundleCfgPath is provided', function() {
+        it('should parse the config and add it as bundle.config', function() {
+            var parsedBundle = parseBundle('./test/test-bundle', './test/test-bundle/bundleConfig.json');
+            parsedBundle.config.should.deep.equal({foo: 'foo'});
+        });
+    });
 });
