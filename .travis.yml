@@ -1,0 +1,24 @@
+env:
+  matrix:
+    - NODE_VERSION=0.12
+    - NODE_VERSION=iojs
+
+sudo: false
+
+os:
+  - linux
+
+install:
+  - nvm install $NODE_VERSION
+  - node --version
+  - npm --version
+  - npm install
+
+script:
+  - npm test
+
+matrix:
+  fast_finish: true
+
+notifications:
+  email: false
