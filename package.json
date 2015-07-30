@@ -15,7 +15,6 @@
     "lib/"
   ],
   "dependencies": {
-    "chai": "^3.2.0",
     "cheerio": "^0.19.0",
     "debug": "^2.2.0"
   },
@@ -24,6 +23,7 @@
     "istanbul": "^0.3.17",
     "lcov-filter": "0.0.3",
     "mocha": "^2.2.5",
+    "chai": "^3.2.0",
     "mocha-lcov-reporter": "0.0.2"
   },
   "scripts": {
