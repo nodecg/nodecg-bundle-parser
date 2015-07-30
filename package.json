@@ -1,6 +1,6 @@
 {
   "name": "nodecg-bundle-parser",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "NodeCG's bundle parser",
   "main": "index.js",
   "directories": {
