@@ -1,21 +1,12 @@
-env:
-  matrix:
-    - NODE_VERSION=0.12
-    - NODE_VERSION=iojs
+language: node_js
+
+node_js:
+  - '0.12'
+  - iojs
 
 sudo: false
 
-os:
-  - linux
-
-install:
-  - nvm install $NODE_VERSION
-  - node --version
-  - npm --version
-  - npm install
-
-script:
-  - npm test
+after_success: npm run coveralls
 
 matrix:
   fast_finish: true

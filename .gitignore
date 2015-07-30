@@ -11,3 +11,6 @@ node_modules/
 
 # Don't ignore .empty_directory files
 !.empty_directory
+
+# Code coverage results
+/coverage

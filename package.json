@@ -12,10 +12,14 @@
     "debug": "^2.2.0"
   },
   "devDependencies": {
-    "mocha": "^2.2.5"
+    "coveralls": "^2.11.3",
+    "istanbul": "^0.3.17",
+    "mocha": "^2.2.5",
+    "mocha-lcov-reporter": "0.0.2"
   },
   "scripts": {
-    "test": "mocha"
+    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "coveralls": "node node_modules/lcov-filter/index.js coverage/lcov.info test bundles | coveralls && rm -rf coverage"
   },
   "repository": {
     "type": "git",
