@@ -77,6 +77,14 @@ describe('bundle parser', function () {
         });
     });
 
+    context('when "panels.json" isn\'t valid JSON', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/bad-json')
+            ).to.throw(/"dashboard\/panels.json" could not be read/);
+        });
+    });
+
     context('when critical properties are missing from "panels.json"', function() {
         it('should throw an error explaining what is missing', function() {
             expect(
