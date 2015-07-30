@@ -1,0 +1,35 @@
+{
+  "name": "nodecg-bundle-parser",
+  "version": "1.0.0",
+  "description": "0.0.0",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "chai": "^3.2.0",
+    "cheerio": "^0.19.0",
+    "debug": "^2.2.0"
+  },
+  "devDependencies": {
+    "mocha": "^2.2.5"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://lange@github.com/nodecg/nodecg-bundle-parser.git"
+  },
+  "keywords": [
+    "nodecg",
+    "bundle",
+    "parser"
+  ],
+  "author": "Alex Van Camp <email@alexvan.camp>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nodecg/nodecg-bundle-parser/issues"
+  },
+  "homepage": "https://github.com/nodecg/nodecg-bundle-parser#readme"
+}

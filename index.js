@@ -2,12 +2,12 @@
 
 var fs = require('fs');
 var path = require('path');
-var log = require('../../logger')('nodecg/lib/bundles/parser');
+var debug = require('debug')('nodecg:bundle-parser');
 var parsePanels = require('./lib/panels');
 var parseManifest = require('./lib/manifest');
 var parseConfig = require('./lib/config');
 
-module.exports = function (bundlePath, cfgPath) {
+module.exports = function (bundlePath, bundleCfgPath) {
     // resolve the path to the bundle and its nodecg.json
     var manifestPath = path.join(bundlePath, 'nodecg.json');
 
@@ -15,22 +15,22 @@ module.exports = function (bundlePath, cfgPath) {
     // Return undefined if nodecg.json doesn't exist
     if (!fs.existsSync(manifestPath)) return;
 
-    log.trace('Discovered bundle in folder bundles/%s', bundleName);
+    debug('Discovered bundle in folder %s', bundlePath);
 
     // Read metadata from the nodecg.json manifest file
     var manifest = parseManifest(manifestPath);
     var bundle = manifest;
     bundle.rawManifest = JSON.stringify(manifest);
-    bundle.dir = dir;
+    bundle.dir = bundlePath;
 
     // If there is a config file for this bundle, parse it
-    if (cfgPath) {
-        bundle.config = parseConfig(cfgPath);
+    if (bundleCfgPath) {
+        bundle.config = parseConfig(bundleCfgPath);
     }
 
     bundle.dashboard = {
-        dir: path.join(bundle.dir, 'dashboard'),
-        panels: parsePanels(bundle)
+        dir: path.resolve(bundle.dir, 'dashboard'),
+        panels: parsePanels(path.resolve(bundle.dir, 'dashboard/panels.json'))
     };
 
     bundle.display = {
