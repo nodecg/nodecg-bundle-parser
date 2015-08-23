@@ -1,7 +1,6 @@
 {
   "name": "test-bundle",
   "version": "0.0.1",
-  "nodecgDependency": "~0.7.0",
   "homepage": "http://github.com/nodecg",
   "authors": [
     "Alex Van Camp <email@alexvan.camp>",
@@ -9,7 +8,15 @@
   ],
   "description": "A test bundle",
   "license": "MIT",
-  "extension": {
-    "path": "extension.js"
+  "nodecg": {
+    "compatibleRange": "~0.7.0",
+    "dashboardPanels": [
+      {
+        "name": "test",
+        "title": "Test Panel",
+        "width": 1,
+        "file": "panel.html"
+      }
+    ]
   }
 }

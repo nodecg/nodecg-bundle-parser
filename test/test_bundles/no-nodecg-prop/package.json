@@ -1,7 +1,6 @@
 {
-  "name": "test-bundle",
+  "name": "test-no-nodecg-prop",
   "version": "0.0.1",
-  "nodecgDependency": "~0.7.0",
   "homepage": "http://github.com/nodecg",
   "authors": [
     "Alex Van Camp <email@alexvan.camp>",

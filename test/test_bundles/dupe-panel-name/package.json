@@ -1,9 +1,6 @@
 {
   "name": "test-bundle",
   "version": "0.0.1",
-  "dependencies": {
-    "commander": "^2.6.0"
-  },
   "homepage": "http://github.com/nodecg",
   "authors": [
     "Alex Van Camp <email@alexvan.camp>",
@@ -19,17 +16,13 @@
         "title": "Test Panel",
         "width": 1,
         "file": "panel.html"
-      }
-    ],
-    "graphics": [
+      },
       {
-        "file": "index.html",
-        "width": 1280,
-        "height": 720
+        "name": "test",
+        "title": "Other Panel",
+        "width": 1,
+        "file": "panel.html"
       }
-    ],
-    "extension": {
-      "path": "extension.js"
-    }
+    ]
   }
 }

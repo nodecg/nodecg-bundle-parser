@@ -4,20 +4,19 @@ var fs = require('fs');
 var path = require('path');
 var debug = require('debug')('nodecg:bundle-parser');
 var parsePanels = require('./lib/panels');
+var parseGraphics = require('./lib/graphics');
 var parseManifest = require('./lib/manifest');
 var parseConfig = require('./lib/config');
 
 module.exports = function (bundlePath, bundleCfgPath) {
-    // resolve the path to the bundle and its nodecg.json
-    var manifestPath = path.join(bundlePath, 'nodecg.json');
+    // Resolve the path to the bundle and its package.json
+    var manifestPath = path.join(bundlePath, 'package.json');
 
     // TODO: Should this throw an error instead?
-    // Return undefined if nodecg.json doesn't exist
+    // Return undefined if package.json doesn't exist
     if (!fs.existsSync(manifestPath)) return;
 
-    debug('Discovered bundle in folder %s', bundlePath);
-
-    // Read metadata from the nodecg.json manifest file
+    // Read metadata from the package.json
     var manifest = parseManifest(manifestPath);
     var bundle = manifest;
     bundle.rawManifest = JSON.stringify(manifest);
@@ -28,14 +27,16 @@ module.exports = function (bundlePath, bundleCfgPath) {
         bundle.config = parseConfig(bundleCfgPath);
     }
 
+    // Parse the dashboard panels
+    var dashboardDir = path.resolve(bundle.dir, 'dashboard');
     bundle.dashboard = {
-        dir: path.resolve(bundle.dir, 'dashboard'),
-        panels: parsePanels(path.resolve(bundle.dir, 'dashboard/panels.json'))
+        dir: dashboardDir,
+        panels: parsePanels(dashboardDir, manifest)
     };
 
-    bundle.display = {
-        dir: path.join(bundle.dir, 'display')
-    };
+    // Parse the graphics
+    var graphicsDir = path.resolve(bundle.dir, 'graphics');
+    bundle.graphics = parseGraphics(graphicsDir, manifest);
 
     return bundle;
 };

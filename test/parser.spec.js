@@ -6,12 +6,18 @@ var chai = require('chai');
 var expect = chai.expect;
 chai.should();
 
-describe('bundle parser', function () {
-    it('should return "undefined" when nodecg.json does not exist', function () {
+describe('main bundle parsing', function () {
+    it('should return "undefined" when package.json does not exist', function () {
         expect(parseBundle('./test')).to.be.undefined;
     });
 
-    it('should return the expected data when nodecg.json does exist', function () {
+    it('should error when package.json has no "nodecg" property', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/no-nodecg-prop')
+        ).to.throw(/lacks a "nodecg" property, and therefore cannot be parsed/);
+    });
+
+    it('should return the expected data when "nodecg" property does exist', function () {
         var parsedBundle = parseBundle('./test/test_bundles/good-bundle');
         parsedBundle.name.should.equal('test-bundle');
         parsedBundle.version.should.equal('0.0.1');
@@ -19,7 +25,7 @@ describe('bundle parser', function () {
         parsedBundle.homepage.should.equal('http://github.com/nodecg');
         parsedBundle.authors.should.deep.equal(['Alex Van Camp <email@alexvan.camp>', 'Matt McNamara']);
         parsedBundle.license.should.equal('MIT');
-        parsedBundle.nodecgDependency.should.equal('~0.7.0');
+        parsedBundle.compatibleRange.should.equal('~0.7.0');
         parsedBundle.extension.should.deep.equal({path: 'extension.js'});
         expect(parsedBundle.bundleDependencies).to.be.undefined;
         parsedBundle.rawManifest.should.be.a.string;
@@ -32,7 +38,7 @@ describe('bundle parser', function () {
             file: 'panel.html',
             dialog: false
         }]);
-        parsedBundle.display.dir.should.be.a.string;
+        parsedBundle.graphics.should.be.an.array;
     });
 
     context('when bundleCfgPath is provided', function() {
@@ -61,31 +67,33 @@ describe('bundle parser', function () {
             });
         });
     });
+});
 
+describe('dashboard panel parsing', function() {
     context('when there is no "dashboard" folder', function() {
         it('should assign an empty array to bundle.dashboard.panels', function() {
-            var parsedBundle = parseBundle('./test/test_bundles/no-dashboard-folder');
+            var parsedBundle = parseBundle('./test/test_bundles/no-panels');
             parsedBundle.dashboard.panels.should.be.an.instanceof(Array).and.be.empty;
         });
     });
 
-    context('when there is a "dashboard" folder but no "panels.json"', function() {
+    context('when there is a "dashboard" folder but no "dashboardPanels" property', function() {
         it('should throw an error', function() {
             expect(
-                parseBundle.bind(parseBundle, './test/test_bundles/no-panelsjson')
-            ).to.throw(/"dashboard\/panels.json" was not found/);
+                parseBundle.bind(parseBundle, './test/test_bundles/no-panels-prop')
+            ).to.throw(/no "nodecg.dashboardPanels" property was found/);
         });
     });
 
-    context('when "panels.json" isn\'t valid JSON', function() {
+    context('when there is a "dashboardPanels" property but no "dashboard" folder', function() {
         it('should throw an error', function() {
             expect(
-                parseBundle.bind(parseBundle, './test/test_bundles/bad-json')
-            ).to.throw(/"dashboard\/panels.json" could not be read/);
+                parseBundle.bind(parseBundle, './test/test_bundles/no-dashboard-folder')
+            ).to.throw(/but no "dashboard" folder/);
         });
     });
 
-    context('when critical properties are missing from "panels.json"', function() {
+    context('when critical properties are missing from the "dashboardPanels" property', function() {
         it('should throw an error explaining what is missing', function() {
             expect(
                 parseBundle.bind(parseBundle, './test/test_bundles/missing-panel-props')
@@ -114,6 +122,47 @@ describe('bundle parser', function () {
             expect(
                 parseBundle.bind(parseBundle, './test/test_bundles/no-doctype')
             ).to.throw(/has no DOCTYPE/);
+        });
+    });
+});
+
+describe('dashboard graphic parsing', function() {
+    context('when there is no "graphics" folder', function() {
+        it('should assign an empty array to bundle.graphics', function() {
+            var parsedBundle = parseBundle('./test/test_bundles/no-graphics');
+            parsedBundle.graphics.should.be.an.instanceof(Array).and.be.empty;
+        });
+    });
+
+    context('when there is a "graphics" folder but no "graphics" property', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/no-graphics-prop')
+            ).to.throw(/no "nodecg.graphics" property was found/);
+        });
+    });
+
+    context('when there is a "graphics" property but no "graphics" folder', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/no-graphics-folder')
+            ).to.throw(/but no "graphics" folder/);
+        });
+    });
+
+    context('when critical properties are missing from the "graphics" property', function() {
+        it('should throw an error explaining what is missing', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/missing-graphic-props')
+            ).to.throw(/the following properties: file, width, height/);
+        });
+    });
+
+    context('when two graphics have the same file', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/dupe-graphic-file')
+            ).to.throw(/has the same file as another graphic/);
         });
     });
 });
