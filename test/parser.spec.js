@@ -41,6 +41,12 @@ describe('main bundle parsing', function () {
         parsedBundle.graphics.should.be.an.array;
     });
 
+    it('should error when "nodecg.compatibleRange" is not a valid semver range', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/no-compatible-range')
+        ).to.throw(/does not have a valid "nodecg.compatibleRange"/);
+    });
+
     context('when bundleCfgPath is provided', function() {
         context('and the file exists', function() {
             it('should parse the config and add it as bundle.config', function() {
