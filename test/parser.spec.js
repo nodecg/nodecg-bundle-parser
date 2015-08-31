@@ -39,12 +39,25 @@ describe('main bundle parsing', function () {
             dialog: false
         }]);
         parsedBundle.graphics.should.be.an.array;
+        parsedBundle.hasExtension.should.be.true;
     });
 
     it('should error when "nodecg.compatibleRange" is not a valid semver range', function () {
         expect(
             parseBundle.bind(parseBundle, './test/test_bundles/no-compatible-range')
         ).to.throw(/does not have a valid "nodecg.compatibleRange"/);
+    });
+
+    it('should error when both "extension.js" and a directory named "extension" exist', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/double-extension')
+        ).to.throw(/has both "extension.js" and a folder named "extension"/);
+    });
+
+    it('should error when "extension" exists and it is not a directory', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/illegal-extension')
+        ).to.throw(/has an illegal file named "extension"/);
     });
 
     context('when bundleCfgPath is provided', function() {

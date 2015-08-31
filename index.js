@@ -7,6 +7,7 @@ var parsePanels = require('./lib/panels');
 var parseGraphics = require('./lib/graphics');
 var parseManifest = require('./lib/manifest');
 var parseConfig = require('./lib/config');
+var parseExtension = require('./lib/extension');
 
 module.exports = function (bundlePath, bundleCfgPath) {
     // Resolve the path to the bundle and its package.json
@@ -37,6 +38,9 @@ module.exports = function (bundlePath, bundleCfgPath) {
     // Parse the graphics
     var graphicsDir = path.resolve(bundle.dir, 'graphics');
     bundle.graphics = parseGraphics(graphicsDir, manifest);
+
+    // Determine if this bundle has an extension that should be loaded by NodeCG
+    bundle.hasExtension = parseExtension(bundle.dir);
 
     return bundle;
 };
