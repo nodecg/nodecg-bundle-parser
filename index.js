@@ -40,7 +40,7 @@ module.exports = function (bundlePath, bundleCfgPath) {
     bundle.graphics = parseGraphics(graphicsDir, manifest);
 
     // Determine if this bundle has an extension that should be loaded by NodeCG
-    bundle.hasExtension = parseExtension(bundle.dir);
+    bundle.hasExtension = parseExtension(bundle.dir, manifest);
 
     return bundle;
 };
