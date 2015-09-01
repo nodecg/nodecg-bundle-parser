@@ -26,7 +26,6 @@ describe('main bundle parsing', function () {
         parsedBundle.authors.should.deep.equal(['Alex Van Camp <email@alexvan.camp>', 'Matt McNamara']);
         parsedBundle.license.should.equal('MIT');
         parsedBundle.compatibleRange.should.equal('~0.7.0');
-        parsedBundle.extension.should.deep.equal({path: 'extension.js'});
         expect(parsedBundle.bundleDependencies).to.be.undefined;
         parsedBundle.rawManifest.should.be.a.string;
         parsedBundle.dir.should.be.a.string;
