@@ -7,8 +7,10 @@ var expect = chai.expect;
 chai.should();
 
 describe('main bundle parsing', function () {
-    it('should return "undefined" when package.json does not exist', function () {
-        expect(parseBundle('./test')).to.be.undefined;
+    it('should error when package.json does not exist', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test')
+        ).to.throw(/does not contain a package.json!/);
     });
 
     it('should error when package.json has no "nodecg" property', function () {

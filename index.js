@@ -13,9 +13,9 @@ module.exports = function (bundlePath, bundleCfgPath) {
     // Resolve the path to the bundle and its package.json
     var manifestPath = path.join(bundlePath, 'package.json');
 
-    // TODO: Should this throw an error instead?
-    // Return undefined if package.json doesn't exist
-    if (!fs.existsSync(manifestPath)) return;
+    if (!fs.existsSync(manifestPath)) {
+        throw new Error('Bundle at path '+ bundlePath +' does not contain a package.json!');
+    }
 
     // Read metadata from the package.json
     var manifest = parseManifest(manifestPath);
