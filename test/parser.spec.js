@@ -25,7 +25,8 @@ describe('main bundle parsing', function () {
         parsedBundle.version.should.equal('0.0.1');
         parsedBundle.description.should.equal('A test bundle');
         parsedBundle.homepage.should.equal('http://github.com/nodecg');
-        parsedBundle.author.should.deep.equal(['Alex Van Camp <email@alexvan.camp>', 'Matt McNamara']);
+        parsedBundle.author.should.equal('Alex Van Camp <email@alexvan.camp>');
+        parsedBundle.contributors.should.deep.equal(['Matt McNamara']);
         parsedBundle.license.should.equal('MIT');
         parsedBundle.compatibleRange.should.equal('~0.7.0');
         expect(parsedBundle.bundleDependencies).to.be.undefined;

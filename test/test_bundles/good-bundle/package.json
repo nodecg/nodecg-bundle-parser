@@ -5,8 +5,8 @@
     "commander": "^2.6.0"
   },
   "homepage": "http://github.com/nodecg",
-  "author": [
-    "Alex Van Camp <email@alexvan.camp>",
+  "author": "Alex Van Camp <email@alexvan.camp>",
+  "contributors": [
     "Matt McNamara"
   ],
   "description": "A test bundle",
