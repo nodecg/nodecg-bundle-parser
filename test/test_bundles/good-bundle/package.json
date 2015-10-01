@@ -5,7 +5,7 @@
     "commander": "^2.6.0"
   },
   "homepage": "http://github.com/nodecg",
-  "authors": [
+  "author": [
     "Alex Van Camp <email@alexvan.camp>",
     "Matt McNamara"
   ],
