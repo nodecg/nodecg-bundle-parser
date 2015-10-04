@@ -19,6 +19,12 @@
         "title": "Test Panel",
         "width": 1,
         "file": "panel.html"
+      },{
+        "name": "test-dialog",
+        "title": "Test Dialog",
+        "width": 3,
+        "file": "dialog.html",
+        "dialog": true
       }
     ],
     "graphics": [

@@ -2,6 +2,7 @@
 'use strict';
 
 var parseBundle = require('../index');
+var cheerio = require('cheerio');
 var chai = require('chai');
 var expect = chai.expect;
 chai.should();
@@ -33,13 +34,26 @@ describe('main bundle parsing', function () {
         parsedBundle.rawManifest.should.be.a.string;
         parsedBundle.dir.should.be.a.string;
         parsedBundle.dashboard.dir.should.be.a.string;
-        parsedBundle.dashboard.panels.should.deep.equal([{
-            name: 'test',
-            title: 'Test Panel',
-            width: 1,
-            file: 'panel.html',
-            dialog: false
-        }]);
+        parsedBundle.dashboard.panels.should.deep.equal([
+            {
+                name: 'test',
+                title: 'Test Panel',
+                width: 1,
+                file: 'panel.html',
+                html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
+                      '\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
+                dialog: false
+            },
+            {
+                name: 'test-dialog',
+                title: 'Test Dialog',
+                width: 3,
+                file: 'dialog.html',
+                html: '<!DOCTYPE html>\n<head></head>\n<body><h2>Test Dialog</h2>\n<p>This is a test dialog!</p>' +
+                      '\n<script>\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
+                dialog: true
+            }
+        ]);
         parsedBundle.graphics.should.be.an.array;
         parsedBundle.hasExtension.should.be.true;
     });
