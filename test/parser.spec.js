@@ -49,8 +49,8 @@ describe('main bundle parsing', function () {
                 title: 'Test Dialog',
                 width: 3,
                 file: 'dialog.html',
-                html: '<!DOCTYPE html>\n<head></head>\n<body><h2>Test Dialog</h2>\n<p>This is a test dialog!</p>' +
-                      '\n<script>\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
+                html: '<!DOCTYPE html>\n<head></head>\n<body><h2>Test Dialog</h2>' +
+                      '\n<p>This is a test dialog!</p>\n</body>\n',
                 dialog: true
             }
         ]);
