@@ -39,6 +39,7 @@ describe('main bundle parsing', function () {
                 name: 'test',
                 title: 'Test Panel',
                 width: 1,
+                headerColor: '#9f9bbd',
                 file: 'panel.html',
                 html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
                       '\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
@@ -48,6 +49,7 @@ describe('main bundle parsing', function () {
                 name: 'test-dialog',
                 title: 'Test Dialog',
                 width: 3,
+                headerColor: '#333222',
                 file: 'dialog.html',
                 html: '<!DOCTYPE html>\n<head></head>\n<body><h2>Test Dialog</h2>' +
                       '\n<p>This is a test dialog!</p>\n</body>\n',

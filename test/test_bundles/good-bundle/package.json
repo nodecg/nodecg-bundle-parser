@@ -23,6 +23,7 @@
         "name": "test-dialog",
         "title": "Test Dialog",
         "width": 3,
+        "headerColor": "#333222",
         "file": "dialog.html",
         "dialog": true
       }
