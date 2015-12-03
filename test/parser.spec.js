@@ -22,7 +22,7 @@ describe('main bundle parsing', function () {
 
     it('should return the expected data when "nodecg" property does exist', function () {
         var parsedBundle = parseBundle('./test/test_bundles/good-bundle');
-        parsedBundle.name.should.equal('test-bundle');
+        parsedBundle.name.should.equal('good-bundle');
         parsedBundle.version.should.equal('0.0.1');
         parsedBundle.description.should.equal('A test bundle');
         parsedBundle.homepage.should.equal('http://github.com/nodecg');
@@ -76,6 +76,12 @@ describe('main bundle parsing', function () {
         expect(
             parseBundle.bind(parseBundle, './test/test_bundles/illegal-extension')
         ).to.throw(/has an illegal file named "extension"/);
+    });
+
+    it('should error when the bundle\'s folder name doesn\'t match its manifest name', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/bad-folder-name')
+        ).to.throw(/Please rename it to "/);
     });
 
     context('when bundleCfgPath is provided', function() {

@@ -1,5 +1,5 @@
 {
-  "name": "test-bundle",
+  "name": "no-compatible-range",
   "version": "0.0.1",
   "dependencies": {
     "commander": "^2.6.0"
