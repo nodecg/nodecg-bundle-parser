@@ -51,8 +51,7 @@ describe('main bundle parsing', function () {
                 width: 3,
                 headerColor: '#333222',
                 file: 'dialog.html',
-                html: '<!DOCTYPE html>\n<head></head>\n<body><h2>Test Dialog</h2>' +
-                      '\n<p>This is a test dialog!</p>\n</body>\n',
+                html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test dialog!</p>\n</body>\n',
                 dialog: true
             }
         ]);
