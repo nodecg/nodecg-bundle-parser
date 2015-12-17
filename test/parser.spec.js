@@ -204,6 +204,14 @@ describe('dashboard panel parsing', function() {
             ).to.throw(/has no DOCTYPE/);
         });
     });
+
+    context('when a panel\'s file does not exist', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/non-existant-panel')
+            ).to.throw(/ does not exist./);
+        });
+    });
 });
 
 describe('dashboard graphic parsing', function() {
