@@ -40,6 +40,7 @@ describe('main bundle parsing', function () {
                 title: 'Test Panel',
                 width: 1,
                 headerColor: '#9f9bbd',
+                path: path.resolve(__dirname, './test_bundles/good-bundle/dashboard/panel.html'),
                 file: 'panel.html',
                 html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
                       '\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
@@ -50,6 +51,7 @@ describe('main bundle parsing', function () {
                 title: 'Test Dialog',
                 width: 3,
                 headerColor: '#333222',
+                path: path.resolve(__dirname, './test_bundles/good-bundle/dashboard/dialog.html'),
                 file: 'dialog.html',
                 html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test dialog!</p>\n</body>\n',
                 dialog: true
@@ -146,7 +148,6 @@ describe('config validation', function() {
         });
     });
 });
-
 
 describe('dashboard panel parsing', function() {
     context('when there is no "dashboard" folder', function() {
