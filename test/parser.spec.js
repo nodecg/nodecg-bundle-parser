@@ -2,7 +2,7 @@
 'use strict';
 
 var parseBundle = require('../index');
-var cheerio = require('cheerio');
+var path = require('path');
 var chai = require('chai');
 var expect = chai.expect;
 chai.should();
