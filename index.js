@@ -2,7 +2,6 @@
 
 var fs = require('fs');
 var path = require('path');
-var debug = require('debug')('nodecg:bundle-parser');
 var parsePanels = require('./lib/panels');
 var parseGraphics = require('./lib/graphics');
 var parseManifest = require('./lib/manifest');
@@ -25,7 +24,7 @@ module.exports = function (bundlePath, bundleCfgPath) {
 
     // If there is a config file for this bundle, parse it
     if (bundleCfgPath) {
-        bundle.config = parseConfig(bundleCfgPath);
+        bundle.config = parseConfig(bundle, bundleCfgPath);
     }
 
     // Parse the dashboard panels

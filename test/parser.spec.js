@@ -82,34 +82,71 @@ describe('main bundle parsing', function () {
             parseBundle.bind(parseBundle, './test/test_bundles/bad-folder-name')
         ).to.throw(/Please rename it to "/);
     });
+});
 
-    context('when bundleCfgPath is provided', function() {
-        context('and the file exists', function() {
-            it('should parse the config and add it as bundle.config', function() {
-                var parsedBundle = parseBundle('./test/test_bundles/good-bundle',
-                    './test/test_bundles/good-bundle/bundleConfig.json');
-                parsedBundle.config.should.deep.equal({foo: 'foo'});
-            });
+describe('config parsing', function() {
+    context('when the config file exists', function() {
+        it('should parse the config and add it as bundle.config', function() {
+            var parsedBundle = parseBundle('./test/test_bundles/good-bundle',
+                './test/test_bundles/good-bundle/bundleConfig.json');
+            parsedBundle.config.should.deep.equal({foo: 'foo'});
         });
+    });
 
-        context('and the file does not exist', function() {
-            it('should throw an error', function() {
-                expect(
-                    parseBundle.bind(parseBundle, './test/test_bundles/good-bundle', './made/up/path.json')
-                ).to.throw(/does not exist/);
-            });
+    context('when the config file does not exist', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/good-bundle', './made/up/path.json')
+            ).to.throw(/does not exist/);
         });
+    });
 
-        context('and the file isn\'t valid JSON', function() {
-            it('should throw an error', function() {
-                expect(
-                    parseBundle.bind(parseBundle, './test/test_bundles/bad-json',
-                        './test/test_bundles/bad-json/bundleConfig.json')
-                ).to.throw(/Ensure that it is valid JSON/);
-            });
+    context('when the config file isn\'t valid JSON', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/bad-json',
+                    './test/test_bundles/bad-json/bundleConfig.json')
+            ).to.throw(/Ensure that it is valid JSON/);
         });
     });
 });
+
+describe('config validation', function() {
+    context('when the schema file exists', function() {
+        it('should not throw when the config passes validation', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/config-validation',
+                    './test/test_bundles/config-validation/validConfig.json')
+            ).to.not.throw();
+        });
+
+        it('should throw when the config fails validation', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/config-validation',
+                    './test/test_bundles/config-validation/invalidConfig.json')
+            ).to.throw(/is invalid:/);
+        });
+    });
+
+    context('when the schema file does not exist', function() {
+        it('should skip validation and not throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/good-bundle',
+                    './test/test_bundles/good-bundle/bundleConfig.json')
+            ).to.not.throw();
+        });
+    });
+
+    context('when the schema file isn\'t valid JSON', function() {
+        it('should throw an error', function() {
+            expect(
+                parseBundle.bind(parseBundle, './test/test_bundles/bad-schema',
+                    './test/test_bundles/bad-schema/bundleConfig.json')
+            ).to.throw(/configschema.json for bundle /);
+        });
+    });
+});
+
 
 describe('dashboard panel parsing', function() {
     context('when there is no "dashboard" folder', function() {
