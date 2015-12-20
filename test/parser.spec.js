@@ -33,6 +33,7 @@ describe('main bundle parsing', function () {
         expect(parsedBundle.bundleDependencies).to.be.undefined;
         parsedBundle.rawManifest.should.be.a.string;
         parsedBundle.dir.should.be.a.string;
+        parsedBundle.dependencies.should.deep.equal({commander: '^2.6.0'});
         parsedBundle.dashboard.dir.should.be.a.string;
         parsedBundle.dashboard.panels.should.deep.equal([
             {
