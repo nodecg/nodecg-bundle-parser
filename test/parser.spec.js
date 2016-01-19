@@ -20,6 +20,12 @@ describe('main bundle parsing', function () {
         ).to.throw(/lacks a "nodecg" property, and therefore cannot be parsed/);
     });
 
+    it('should error when package.json is not valid JSON', function () {
+        expect(
+            parseBundle.bind(parseBundle, './test/test_bundles/invalid-manifest-json')
+        ).to.throw(/package.json is not valid JSON/);
+    });
+
     it('should return the expected data when "nodecg" property does exist', function () {
         var parsedBundle = parseBundle('./test/test_bundles/good-bundle');
         parsedBundle.name.should.equal('good-bundle');
