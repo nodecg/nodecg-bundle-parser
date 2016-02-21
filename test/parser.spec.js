@@ -61,6 +61,8 @@ describe('main bundle parsing', function () {
 		]);
 		assert.isArray(parsedBundle.graphics);
 		assert.isTrue(parsedBundle.hasExtension);
+		assert.isBoolean(parsedBundle.uploads.enabled);
+		assert.isArray(parsedBundle.uploads.allowedTypes);
 	});
 
 	it('should error when "nodecg.compatibleRange" is not a valid semver range', function () {
