@@ -12,17 +12,17 @@ describe('main bundle parsing', function () {
 	});
 
 	it('should error when package.json has no "nodecg" property', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-nodecg-prop'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-nodecg-prop'),
 			/lacks a "nodecg" property, and therefore cannot be parsed/);
 	});
 
 	it('should error when package.json is not valid JSON', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/invalid-manifest-json'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/invalid-manifest-json'),
 			/package.json is not valid JSON/);
 	});
 
 	it('should return the expected data when "nodecg" property does exist', function () {
-		var parsedBundle = parseBundle('./test/test_bundles/good-bundle');
+		var parsedBundle = parseBundle('./test/fixtures/good-bundle');
 		assert.equal(parsedBundle.name, 'good-bundle');
 		assert.equal(parsedBundle.version, '0.0.1');
 		assert.equal(parsedBundle.description, 'A test bundle');
@@ -42,7 +42,7 @@ describe('main bundle parsing', function () {
 				title: 'Test Panel',
 				width: 1,
 				headerColor: '#9f9bbd',
-				path: path.resolve(__dirname, './test_bundles/good-bundle/dashboard/panel.html'),
+				path: path.resolve(__dirname, './fixtures/good-bundle/dashboard/panel.html'),
 				file: 'panel.html',
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
 				'\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
@@ -53,7 +53,7 @@ describe('main bundle parsing', function () {
 				title: 'Test Dialog',
 				width: 3,
 				headerColor: '#333222',
-				path: path.resolve(__dirname, './test_bundles/good-bundle/dashboard/dialog.html'),
+				path: path.resolve(__dirname, './fixtures/good-bundle/dashboard/dialog.html'),
 				file: 'dialog.html',
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test dialog!</p>\n</body>\n',
 				dialog: true
@@ -66,22 +66,22 @@ describe('main bundle parsing', function () {
 	});
 
 	it('should error when "nodecg.compatibleRange" is not a valid semver range', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-compatible-range'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-compatible-range'),
 			/does not have a valid "nodecg.compatibleRange"/);
 	});
 
 	it('should error when both "extension.js" and a directory named "extension" exist', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/double-extension'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/double-extension'),
 			/has both "extension.js" and a folder named "extension"/);
 	});
 
 	it('should error when "extension" exists and it is not a directory', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/illegal-extension'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/illegal-extension'),
 			/has an illegal file named "extension"/);
 	});
 
 	it('should error when the bundle\'s folder name doesn\'t match its manifest name', function () {
-		assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/bad-folder-name'),
+		assert.throws(parseBundle.bind(parseBundle, './test/fixtures/bad-folder-name'),
 			/Please rename it to "/);
 	});
 });
@@ -89,23 +89,23 @@ describe('main bundle parsing', function () {
 describe('config parsing', function () {
 	context('when the config file exists', function () {
 		it('should parse the config and add it as bundle.config', function () {
-			var parsedBundle = parseBundle('./test/test_bundles/good-bundle',
-				'./test/test_bundles/good-bundle/bundleConfig.json');
+			var parsedBundle = parseBundle('./test/fixtures/good-bundle',
+				'./test/fixtures/good-bundle/bundleConfig.json');
 			assert.deepEqual(parsedBundle.config, {foo: 'foo'});
 		});
 	});
 
 	context('when the config file does not exist', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/good-bundle', './made/up/path.json'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/good-bundle', './made/up/path.json'),
 				/does not exist/);
 		});
 	});
 
 	context('when the config file isn\'t valid JSON', function () {
 		it('should throw an error', function () {
-			var fn = parseBundle.bind(parseBundle, './test/test_bundles/bad-json',
-				'./test/test_bundles/bad-json/bundleConfig.json');
+			var fn = parseBundle.bind(parseBundle, './test/fixtures/bad-json',
+				'./test/fixtures/bad-json/bundleConfig.json');
 			assert.throws(fn, /Ensure that it is valid JSON/);
 		});
 	});
@@ -114,30 +114,30 @@ describe('config parsing', function () {
 describe('config validation', function () {
 	context('when the schema file exists', function () {
 		it('should not throw when the config passes validation', function () {
-			var fn = parseBundle.bind(parseBundle, './test/test_bundles/config-validation',
-				'./test/test_bundles/config-validation/validConfig.json');
+			var fn = parseBundle.bind(parseBundle, './test/fixtures/config-validation',
+				'./test/fixtures/config-validation/validConfig.json');
 			assert.doesNotThrow(fn);
 		});
 
 		it('should throw when the config fails validation', function () {
-			var fn = parseBundle.bind(parseBundle, './test/test_bundles/config-validation',
-				'./test/test_bundles/config-validation/invalidConfig.json');
+			var fn = parseBundle.bind(parseBundle, './test/fixtures/config-validation',
+				'./test/fixtures/config-validation/invalidConfig.json');
 			assert.throws(fn, /is invalid:/);
 		});
 	});
 
 	context('when the schema file does not exist', function () {
 		it('should skip validation and not throw an error', function () {
-			var fn = parseBundle.bind(parseBundle, './test/test_bundles/good-bundle',
-				'./test/test_bundles/good-bundle/bundleConfig.json');
+			var fn = parseBundle.bind(parseBundle, './test/fixtures/good-bundle',
+				'./test/fixtures/good-bundle/bundleConfig.json');
 			assert.doesNotThrow(fn);
 		});
 	});
 
 	context('when the schema file isn\'t valid JSON', function () {
 		it('should throw an error', function () {
-			var fn = parseBundle.bind(parseBundle, './test/test_bundles/bad-schema',
-				'./test/test_bundles/bad-schema/bundleConfig.json');
+			var fn = parseBundle.bind(parseBundle, './test/fixtures/bad-schema',
+				'./test/fixtures/bad-schema/bundleConfig.json');
 			assert.throws(fn, /configschema.json for bundle /);
 		});
 	});
@@ -146,7 +146,7 @@ describe('config validation', function () {
 describe('dashboard panel parsing', function () {
 	context('when there is no "dashboard" folder', function () {
 		it('should assign an empty array to bundle.dashboard.panels', function () {
-			var parsedBundle = parseBundle('./test/test_bundles/no-panels');
+			var parsedBundle = parseBundle('./test/fixtures/no-panels');
 			assert.isArray(parsedBundle.dashboard.panels);
 			assert.lengthOf(parsedBundle.dashboard.panels, 0);
 		});
@@ -154,49 +154,49 @@ describe('dashboard panel parsing', function () {
 
 	context('when there is a "dashboard" folder but no "dashboardPanels" property', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-panels-prop'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-panels-prop'),
 				/no "nodecg.dashboardPanels" property was found/);
 		});
 	});
 
 	context('when there is a "dashboardPanels" property but no "dashboard" folder', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-dashboard-folder'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-dashboard-folder'),
 				/but no "dashboard" folder/);
 		});
 	});
 
 	context('when critical properties are missing from the "dashboardPanels" property', function () {
 		it('should throw an error explaining what is missing', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/missing-panel-props'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/missing-panel-props'),
 				/the following properties: name, title, file/);
 		});
 	});
 
 	context('when two panels have the same name', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/dupe-panel-name'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/dupe-panel-name'),
 				/has the same name as another panel/);
 		});
 	});
 
 	context('when a panel\'s file has no <head> tag', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-head'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-head'),
 				/has no <head>/);
 		});
 	});
 
 	context('when a panel\'s file has no <!DOCTYPE>', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-doctype'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-doctype'),
 				/has no DOCTYPE/);
 		});
 	});
 
 	context('when a panel\'s file does not exist', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/non-existant-panel'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/non-existant-panel'),
 				/ does not exist/);
 		});
 	});
@@ -205,7 +205,7 @@ describe('dashboard panel parsing', function () {
 describe('dashboard graphic parsing', function () {
 	context('when there is no "graphics" folder', function () {
 		it('should assign an empty array to bundle.graphics', function () {
-			var parsedBundle = parseBundle('./test/test_bundles/no-graphics');
+			var parsedBundle = parseBundle('./test/fixtures/no-graphics');
 			assert.isArray(parsedBundle.graphics);
 			assert.lengthOf(parsedBundle.graphics, 0);
 		});
@@ -213,28 +213,28 @@ describe('dashboard graphic parsing', function () {
 
 	context('when there is a "graphics" folder but no "graphics" property', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-graphics-prop'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-graphics-prop'),
 				/no "nodecg.graphics" property was found/);
 		});
 	});
 
 	context('when there is a "graphics" property but no "graphics" folder', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/no-graphics-folder'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/no-graphics-folder'),
 				/but no "graphics" folder/);
 		});
 	});
 
 	context('when critical properties are missing from the "graphics" property', function () {
 		it('should throw an error explaining what is missing', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/missing-graphic-props'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/missing-graphic-props'),
 				/the following properties: file, width, height/);
 		});
 	});
 
 	context('when two graphics have the same file', function () {
 		it('should throw an error', function () {
-			assert.throws(parseBundle.bind(parseBundle, './test/test_bundles/dupe-graphic-file'),
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/dupe-graphic-file'),
 				/has the same file as another graphic/);
 		});
 	});
