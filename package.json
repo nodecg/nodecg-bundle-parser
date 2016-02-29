@@ -30,7 +30,8 @@
     "mocha-lcov-reporter": "0.0.2"
   },
   "scripts": {
-    "test": "istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
+    "static": "eslint -c .eslintrc index.js lib/**/*.js test/**/*.js",
+    "test": "npm run static && istanbul cover node_modules/mocha/bin/_mocha -- -R spec",
     "coveralls": "node node_modules/lcov-filter/index.js coverage/lcov.info test | coveralls && rm -rf coverage"
   },
   "engines": {
