@@ -5,7 +5,7 @@ var path = require('path');
 var parsePanels = require('./lib/panels');
 var parseGraphics = require('./lib/graphics');
 var parseManifest = require('./lib/manifest');
-var parseConfig = require('./lib/config');
+var config = require('./lib/config');
 var parseExtension = require('./lib/extension');
 
 module.exports = function (bundlePath, bundleCfgPath) {
@@ -22,9 +22,12 @@ module.exports = function (bundlePath, bundleCfgPath) {
 	bundle.rawManifest = JSON.stringify(manifest);
 	bundle.dir = bundlePath;
 
-	// If there is a config file for this bundle, parse it
+	// If there is a config file for this bundle, parse it.
+	// Else if there is only a configschema for this bundle, parse that and apply any defaults.
 	if (bundleCfgPath) {
-		bundle.config = parseConfig(bundle, bundleCfgPath);
+		bundle.config = config.parse(bundle, bundleCfgPath);
+	} else {
+		bundle.config = config.parseDefaults(bundle);
 	}
 
 	// Parse the dashboard panels

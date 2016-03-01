@@ -93,6 +93,11 @@ describe('config parsing', function () {
 				'./test/fixtures/good-bundle/bundleConfig.json');
 			assert.deepEqual(parsedBundle.config, {foo: 'foo'});
 		});
+
+		it('should set default values if the config doesn\'t define them', function () {
+			var parsedBundle = parseBundle('./test/fixtures/config-defaults');
+			assert.deepEqual(parsedBundle.config, {foo: 'foo'});
+		});
 	});
 
 	context('when the config file does not exist', function () {
