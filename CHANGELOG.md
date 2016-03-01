@@ -1,3 +1,13 @@
+<a name="0.1.16"></a>
+## [0.1.16](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.1.15...v0.1.16) (2016-03-01)
+
+
+### Features
+
+* **config:** automatically apply defaults from `configschema.json` even if a user config does ([9255ae2](https://github.com/nodecg/nodecg-bundle-parser/commit/9255ae2))
+
+
+
 <a name="0.1.15"></a>
 ## [0.1.15](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.1.14...v0.1.15) (2016-02-21)
 
