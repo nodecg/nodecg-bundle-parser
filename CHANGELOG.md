@@ -1,3 +1,13 @@
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.2.0...v0.2.1) (2016-04-07)
+
+
+### Bug Fixes
+
+* **sounds:** change how cue.assignable is defaulted ([0e89ce9](https://github.com/nodecg/nodecg-bundle-parser/commit/0e89ce9))
+
+
+
 <a name="0.2.0"></a>
 # [0.2.0](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.1.16...v0.2.0) (2016-04-07)
 
