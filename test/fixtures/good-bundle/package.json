@@ -34,6 +34,23 @@
         "width": 1280,
         "height": 720
       }
+    ],
+    "soundCues": [
+      {
+        "name": "name-only"
+      },
+      {
+        "name": "default-volume",
+        "defaultVolume": 80
+      },
+      {
+        "name": "non-assignable",
+        "assignable": false
+      },
+      {
+        "name": "default-file",
+        "defaultFile": "../default-file.ogg"
+      }
     ]
   }
 }
