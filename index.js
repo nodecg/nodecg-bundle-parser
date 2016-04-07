@@ -10,16 +10,23 @@ const parseExtension = require('./lib/extension');
 
 module.exports = function (bundlePath, bundleCfgPath) {
 	// Resolve the path to the bundle and its package.json
-	const manifestPath = path.join(bundlePath, 'package.json');
+	const pkgPath = path.join(bundlePath, 'package.json');
 
-	if (!fs.existsSync(manifestPath)) {
+	if (!fs.existsSync(pkgPath)) {
 		throw new Error(`Bundle at path ${bundlePath} does not contain a package.json!`);
 	}
 
 	// Read metadata from the package.json
-	const manifest = parseManifest(manifestPath);
-	const bundle = manifest;
-	bundle.rawManifest = JSON.stringify(manifest);
+	let pkg;
+	try {
+		pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
+	} catch (e) {
+		throw new Error(`${pkgPath} is not valid JSON, ` +
+			'please check it against a validator such as jsonlint.com');
+	}
+
+	const bundle = parseManifest(pkg, bundlePath);
+	bundle.rawManifest = JSON.stringify(bundle);
 	bundle.dir = bundlePath;
 
 	// If there is a config file for this bundle, parse it.
@@ -34,15 +41,15 @@ module.exports = function (bundlePath, bundleCfgPath) {
 	const dashboardDir = path.resolve(bundle.dir, 'dashboard');
 	bundle.dashboard = {
 		dir: dashboardDir,
-		panels: parsePanels(dashboardDir, manifest)
+		panels: parsePanels(dashboardDir, bundle)
 	};
 
 	// Parse the graphics
 	const graphicsDir = path.resolve(bundle.dir, 'graphics');
-	bundle.graphics = parseGraphics(graphicsDir, manifest);
+	bundle.graphics = parseGraphics(graphicsDir, bundle);
 
 	// Determine if this bundle has an extension that should be loaded by NodeCG
-	bundle.hasExtension = parseExtension(bundle.dir, manifest);
+	bundle.hasExtension = parseExtension(bundle.dir, bundle);
 
 	return bundle;
 };
