@@ -1,10 +1,8 @@
-/* eslint-env mocha */
 'use strict';
 
 const parseBundle = require('../index');
 const path = require('path');
-const chai = require('chai');
-const assert = chai.assert;
+const assert = require('chai').assert;
 
 describe('main bundle parsing', () => {
 	it('should error when package.json does not exist', () => {
@@ -61,8 +59,6 @@ describe('main bundle parsing', () => {
 		]);
 		assert.isArray(parsedBundle.graphics);
 		assert.isTrue(parsedBundle.hasExtension);
-		assert.isBoolean(parsedBundle.uploads.enabled);
-		assert.isArray(parsedBundle.uploads.allowedTypes);
 	});
 
 	it('should error when "nodecg.compatibleRange" is not a valid semver range', () => {
