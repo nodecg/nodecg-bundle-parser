@@ -63,4 +63,14 @@ describe('uploads parsing', () => {
 			}
 		}), 'nodecg.uploadCategories[0].allowedTypes in bundle test-bundle is not an Array');
 	});
+
+	it('should throw an error when an uploadCategory is named "sounds"', () => {
+		assert.throws(parseUploads.bind(null, {
+			name: 'test-bundle',
+			nodecg: {
+				uploadCategories: [{name: 'Sounds'}]
+			}
+		}), '"sounds" is a reserved uploadCategory name. ' +
+			'Please change nodecg.uploadCategories[0].name in bundle test-bundle');
+	});
 });
