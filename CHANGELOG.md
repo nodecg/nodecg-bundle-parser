@@ -1,3 +1,13 @@
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.1.16...v0.2.0) (2016-04-07)
+
+
+### Features
+
+* **sounds + uploads:** add support for soundCue and uploadCategory parsing ([1ac84b0](https://github.com/nodecg/nodecg-bundle-parser/commit/1ac84b0))
+
+
+
 <a name="0.1.16"></a>
 ## [0.1.16](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.1.15...v0.1.16) (2016-03-01)
 
