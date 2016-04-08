@@ -5,7 +5,7 @@ const path = require('path');
 const parsePanels = require('./lib/panels');
 const parseGraphics = require('./lib/graphics');
 const parseManifest = require('./lib/manifest');
-const parseUploads = require('./lib/uploads');
+const parseAssets = require('./lib/assets');
 const parseSounds = require('./lib/sounds');
 const config = require('./lib/config');
 const parseExtension = require('./lib/extension');
@@ -50,8 +50,8 @@ module.exports = function (bundlePath, bundleCfgPath) {
 	const graphicsDir = path.resolve(bundle.dir, 'graphics');
 	bundle.graphics = parseGraphics(graphicsDir, bundle);
 
-	// Parse upload categories
-	bundle.uploadCategories = parseUploads(pkg);
+	// Parse asset categories
+	bundle.assetCategories = parseAssets(pkg);
 
 	// Parse sound cues
 	parseSounds(bundle, pkg);
