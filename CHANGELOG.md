@@ -1,3 +1,23 @@
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.2.1...v0.3.0) (2016-04-08)
+
+
+### Code Refactoring
+
+* **assets:** rename uploads to assets ([acbed83](https://github.com/nodecg/nodecg-bundle-parser/commit/acbed83))
+
+### Features
+
+* **uploads:** throw an error when an uploadcategory uses the reserved name "sounds" ([2c4c4ac](https://github.com/nodecg/nodecg-bundle-parser/commit/2c4c4ac))
+
+
+### BREAKING CHANGES
+
+* assets: uploads are now called assets (uploadCategories ->
+assetCategories)
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.2.0...v0.2.1) (2016-04-07)
 
