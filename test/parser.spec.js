@@ -60,18 +60,18 @@ describe('main bundle parsing', () => {
 		assert.isArray(parsedBundle.graphics);
 		assert.isTrue(parsedBundle.hasExtension);
 		assert.deepEqual(parsedBundle.soundCues, [{
-			name: "name-only",
+			name: 'name-only',
 			assignable: true
 		}, {
-			name: "default-volume",
+			name: 'default-volume',
 			defaultVolume: 80,
 			assignable: true
 		}, {
-			name: "non-assignable",
+			name: 'non-assignable',
 			assignable: false
 		}, {
-			name: "default-file",
-			defaultFile: "../default-file.ogg",
+			name: 'default-file',
+			defaultFile: '../default-file.ogg',
 			assignable: true
 		}]);
 	});

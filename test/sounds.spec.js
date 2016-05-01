@@ -6,31 +6,31 @@ const parseSounds = require('../lib/sounds');
 describe('sound cue parsing', () => {
 	it('should return the parsed soundCues', () => {
 		const input = [{
-			name: "name-only"
+			name: 'name-only'
 		}, {
-			name: "default-volume",
+			name: 'default-volume',
 			defaultVolume: 80
 		}, {
-			name: "non-assignable",
+			name: 'non-assignable',
 			assignable: false
 		}, {
-			name: "default-file",
-			defaultFile: "fixtures/default-file.ogg"
+			name: 'default-file',
+			defaultFile: 'fixtures/default-file.ogg'
 		}];
 
 		const output = [{
-			name: "name-only",
+			name: 'name-only',
 			assignable: true
 		}, {
-			name: "default-volume",
+			name: 'default-volume',
 			defaultVolume: 80,
 			assignable: true
 		}, {
-			name: "non-assignable",
+			name: 'non-assignable',
 			assignable: false
 		}, {
-			name: "default-file",
-			defaultFile: "fixtures/default-file.ogg",
+			name: 'default-file',
+			defaultFile: 'fixtures/default-file.ogg',
 			assignable: true
 		}];
 
