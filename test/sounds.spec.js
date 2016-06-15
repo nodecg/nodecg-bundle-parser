@@ -50,7 +50,10 @@ describe('sound cue parsing', () => {
 
 	it('should set bundle.soundCues to an empty array when pkg.nodecg.soundCues does not exist', () => {
 		const bundle = {};
-		parseSounds(bundle, {name: 'test-bundle', nodecg: {}});
+		parseSounds(bundle, {
+			name: 'test-bundle',
+			nodecg: {}
+		});
 		assert.deepEqual(bundle.soundCues, []);
 	});
 
@@ -77,7 +80,10 @@ describe('sound cue parsing', () => {
 		parseSounds(bundle, {
 			name: 'test-bundle',
 			nodecg: {
-				soundCues: [{name: 'cue', defaultVolume: 101}]
+				soundCues: [{
+					name: 'cue',
+					defaultVolume: 101
+				}]
 			}
 		});
 		assert.equal(bundle.soundCues[0].defaultVolume, 100);
@@ -88,7 +94,10 @@ describe('sound cue parsing', () => {
 		parseSounds(bundle, {
 			name: 'test-bundle',
 			nodecg: {
-				soundCues: [{name: 'cue', defaultVolume: -1}]
+				soundCues: [{
+					name: 'cue',
+					defaultVolume: -1
+				}]
 			}
 		});
 		assert.equal(bundle.soundCues[0].defaultVolume, 0);
@@ -100,7 +109,10 @@ describe('sound cue parsing', () => {
 		}, {
 			name: 'test-bundle',
 			nodecg: {
-				soundCues: [{name: 'cue', defaultFile: 'nope'}]
+				soundCues: [{
+					name: 'cue',
+					defaultFile: 'nope'
+				}]
 			}
 		}), 'nodecg.soundCues[0].defaultFile in bundle test-bundle does not exist');
 	});
