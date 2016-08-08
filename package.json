@@ -17,7 +17,7 @@
   "dependencies": {
     "cheerio": "^0.20.0",
     "extend": "^3.0.0",
-    "json-schema-defaults": "^0.1.1",
+    "json-schema-defaults": "^0.2.0",
     "semver": "^5.0.1",
     "tv4": "^1.2.7"
   },
