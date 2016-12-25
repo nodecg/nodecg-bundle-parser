@@ -140,6 +140,20 @@ describe('config validation', () => {
 				'./test/fixtures/config-validation/invalidConfig.json');
 			assert.throws(fn, /is invalid:/);
 		});
+
+		// Smoke test for https://github.com/chute/json-schema-defaults/issues/10
+		it('should properly merge configs that have arrays of objects', () => {
+			const parsedBundle = parseBundle('./test/fixtures/config-schema-array-of-objects',
+				'./test/fixtures/config-schema-array-of-objects/bundleConfig.json');
+			assert.deepEqual(parsedBundle.config, {
+				gameAudioChannels: [
+					{sd: 17, hd: 25},
+					{sd: 19, hd: 27},
+					{sd: 21, hd: null},
+					{sd: 23, hd: null}
+				]
+			});
+		});
 	});
 
 	context('when the schema file does not exist', () => {
