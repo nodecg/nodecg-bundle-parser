@@ -1,4 +1,6 @@
 # nodecg-bundle-parser
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/nodecg/nodecg-bundle-parser.svg)](https://greenkeeper.io/)
 The bundle parser for NodeCG.
 
 [![Build Status](https://travis-ci.org/nodecg/nodecg-bundle-parser.svg?branch=master)](https://travis-ci.org/nodecg/nodecg-bundle-parser)
