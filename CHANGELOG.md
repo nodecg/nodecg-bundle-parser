@@ -1,3 +1,13 @@
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.3.0...v0.3.1) (2017-03-01)
+
+
+### Features
+
+* add "enableCustomCues" manifest option ([ca5f876](https://github.com/nodecg/nodecg-bundle-parser/commit/ca5f876))
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.2.1...v0.3.0) (2016-04-08)
 
