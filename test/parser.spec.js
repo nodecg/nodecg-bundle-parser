@@ -26,6 +26,7 @@ describe('main bundle parsing', () => {
 		assert.equal(parsedBundle.description, 'A test bundle');
 		assert.equal(parsedBundle.homepage, 'http://github.com/nodecg');
 		assert.equal(parsedBundle.author, 'Alex Van Camp <email@alexvan.camp>');
+		assert.equal(parsedBundle.enableCustomCues, false);
 		assert.deepEqual(parsedBundle.contributors, ['Matt McNamara']);
 		assert.equal(parsedBundle.license, 'MIT');
 		assert.equal(parsedBundle.compatibleRange, '~0.7.0');
