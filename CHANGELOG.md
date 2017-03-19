@@ -1,3 +1,13 @@
+<a name="0.3.2"></a>
+## [0.3.2](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.3.1...v0.3.2) (2017-03-19)
+
+
+### Features
+
+* add "bundleName" field to parsed panels ([9b328e7](https://github.com/nodecg/nodecg-bundle-parser/commit/9b328e7))
+
+
+
 <a name="0.3.1"></a>
 ## [0.3.1](https://github.com/nodecg/nodecg-bundle-parser/compare/v0.3.0...v0.3.1) (2017-03-01)
 
