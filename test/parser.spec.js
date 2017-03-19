@@ -45,7 +45,8 @@ describe('main bundle parsing', () => {
 				file: 'panel.html',
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
 				'\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
-				dialog: false
+				dialog: false,
+				bundleName: 'good-bundle'
 			},
 			{
 				name: 'test-dialog',
@@ -55,7 +56,8 @@ describe('main bundle parsing', () => {
 				path: path.resolve(__dirname, './fixtures/good-bundle/dashboard/dialog.html'),
 				file: 'dialog.html',
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test dialog!</p>\n</body>\n',
-				dialog: true
+				dialog: true,
+				bundleName: 'good-bundle'
 			}
 		]);
 		assert.isArray(parsedBundle.graphics);
