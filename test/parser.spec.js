@@ -46,7 +46,21 @@ describe('main bundle parsing', () => {
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel!</p>\n<script>' +
 				'\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
 				dialog: false,
-				bundleName: 'good-bundle'
+				bundleName: 'good-bundle',
+				workspace: 'default'
+			},
+			{
+				name: 'test-workspace-panel',
+				title: 'Test Workspace Panel',
+				width: 1,
+				headerColor: '#ffffff',
+				path: path.resolve(__dirname, './fixtures/good-bundle/dashboard/workspace-panel.html'),
+				file: 'workspace-panel.html',
+				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test panel that goes into a test ' +
+				'workspace!</p>\n</body>\n',
+				dialog: false,
+				bundleName: 'good-bundle',
+				workspace: 'foo'
 			},
 			{
 				name: 'test-dialog',
@@ -231,6 +245,13 @@ describe('dashboard panel parsing', () => {
 		it('should throw an error', () => {
 			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/non-existant-panel'),
 				/ does not exist/);
+		});
+	});
+
+	context('when a dialog has a workspace', () => {
+		it('should throw an error', () => {
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/dialog-workspace'),
+				/Dialogs don't get put into workspaces/);
 		});
 	});
 });
