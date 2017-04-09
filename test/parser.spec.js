@@ -47,7 +47,8 @@ describe('main bundle parsing', () => {
 				'\n    window.parent.dashboardApi = window.nodecg;\n</script>\n</body>\n',
 				dialog: false,
 				bundleName: 'good-bundle',
-				workspace: 'default'
+				workspace: 'default',
+				fullbleed: false
 			},
 			{
 				name: 'test-workspace-panel',
@@ -60,7 +61,21 @@ describe('main bundle parsing', () => {
 				'workspace!</p>\n</body>\n',
 				dialog: false,
 				bundleName: 'good-bundle',
-				workspace: 'foo'
+				workspace: 'foo',
+				fullbleed: false
+			},
+			{
+				name: 'test-fullbleed-panel',
+				title: 'Test Fullbleed Panel',
+				width: 1,
+				headerColor: '#9f9bbd',
+				path: path.resolve(__dirname, './fixtures/good-bundle/dashboard/fullbleed-panel.html'),
+				file: 'fullbleed-panel.html',
+				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test fullbleed panel!</p>\n</body>\n',
+				dialog: false,
+				bundleName: 'good-bundle',
+				fullbleed: true,
+				workspace: 'default'
 			},
 			{
 				name: 'test-dialog',
@@ -71,7 +86,8 @@ describe('main bundle parsing', () => {
 				file: 'dialog.html',
 				html: '<!DOCTYPE html>\n<head></head>\n<body>\n<p>This is a test dialog!</p>\n</body>\n',
 				dialog: true,
-				bundleName: 'good-bundle'
+				bundleName: 'good-bundle',
+				fullbleed: false
 			}
 		]);
 		assert.isArray(parsedBundle.graphics);
@@ -252,6 +268,34 @@ describe('dashboard panel parsing', () => {
 		it('should throw an error', () => {
 			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/dialog-workspace'),
 				/Dialogs don't get put into workspaces/);
+		});
+	});
+
+	context('when a dialog is fullbleed', () => {
+		it('should throw an error', () => {
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/dialog-fullbleed'),
+				/Fullbleed panels cannot be dialogs/);
+		});
+	});
+
+	context('when a fullbleed panel has a workspace', () => {
+		it('should throw an error', () => {
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/fullbleed-workspace'),
+				/Fullbleed panels are not allowed to define a workspace/);
+		});
+	});
+
+	context('when a fullbleed panel has a defined width', () => {
+		it('should throw an error', () => {
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/fullbleed-width'),
+				/Fullbleed panels have their width set based on the/);
+		});
+	});
+
+	context('when a panel has a workspace that begins with __nodecg', () => {
+		it('should throw an error', () => {
+			assert.throws(parseBundle.bind(parseBundle, './test/fixtures/reserved-workspace__nodecg'),
+				/whose name begins with __nodecg, which is a reserved string/);
 		});
 	});
 });
