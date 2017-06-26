@@ -142,6 +142,12 @@ describe('config parsing', () => {
 			const parsedBundle = parseBundle('./test/fixtures/config-defaults');
 			assert.deepEqual(parsedBundle.config, {foo: 'foo'});
 		});
+
+		it('should not reject a config if it doesn\'t provide a value, but the schema provides a default', () => {
+			const parsedBundle = parseBundle('./test/fixtures/required-defaults',
+				'./test/fixtures/required-defaults/bundleConfig.json');
+			assert.deepEqual(parsedBundle.config, {foo: 'foo', bar: 'bar'});
+		});
 	});
 
 	context('when the config file does not exist', () => {
